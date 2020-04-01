@@ -14,6 +14,11 @@ datasets_server_path = [
     "/usb/KINGSTON/strudl/datasets/rgb",
     "/usb/KINGSTON/strudl/datasets/rgb_night"]
 
+# video info
+video_format = "mkv"
+video_fps = 25
+video_resolution = (640, 480)
+
 # annotation
 train_test_split = 1
 annotate_total = 500
