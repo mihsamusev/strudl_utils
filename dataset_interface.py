@@ -9,7 +9,7 @@ class DatasetInterface:
     def verify_config(self, config):
         pass
 
-    def post_mask(api_host, dataset_name, mask_path):
+    def post_mask(self, api_host, dataset_name, mask_path):
         files = [('mask_image_file', open(mask_path,'rb'))]
         r = requests.post(url=api_host + "datasets/masks",
         params={"dataset_name": dataset_name}, files=files)
@@ -21,7 +21,7 @@ class DatasetInterface:
             print("[INFO] status [{}] uploading image mask '{}' - fail".format(r.status_code, dataset_name))
             return False
 
-    def post_dataset(api_host, dataset_name, class_names, class_heights):
+    def post_dataset(self, api_host, dataset_name, class_names, class_heights):
         r = requests.post(url=api_host + "datasets",
         params={
             "dataset_name": dataset_name,
@@ -35,7 +35,7 @@ class DatasetInterface:
             print("[INFO] status [{}] creating dataset '{}' - fail".format(r.status_code, dataset_name))
             return False
 
-    def post_config(api_host, dataset_name, settings): 
+    def post_config(self, api_host, dataset_name, settings): 
         r = requests.post(url=api_host + "datasets/config",
             params={"dataset_name": dataset_name}, json=settings)
 
@@ -46,13 +46,13 @@ class DatasetInterface:
             print("[INFO] status [{}] adding config to '{}' - fail".format(r.status_code, dataset_name))
             return False
 
-    def get_folder_mask(folder, ending="_mask.png"):
+    def get_folder_mask(self, folder, ending="_mask.png"):
         files = next(os.walk(folder))[2]
         for f in files:
             if f.endswith(ending):
                 return f
 
-    def post_import_videos(api_host, dataset_name, server_video_path):
+    def post_import_videos(self, api_host, dataset_name, server_video_path):
         params = {
             "dataset_name": dataset_name,
             "path": server_video_path,
@@ -68,7 +68,7 @@ class DatasetInterface:
             print("[INFO] status [{}] adding videos to '{}' - fail".format(r.status_code, dataset_name))
             return False
 
-    def post_prepare_annotation(api_host, dataset_name):
+    def post_prepare_annotation(self, api_host, dataset_name):
         r = requests.post(url=api_host + "jobs/prepare_annotation",
         params={"dataset_name": dataset_name, "less_night": False})
         if r.status_code == 202:
@@ -78,7 +78,7 @@ class DatasetInterface:
             print("[INFO] status [{}] extract frames to annotate for '{}' - fail".format(r.status_code, dataset_name))
             return False
 
-    def post_point_tracks(api_host, dataset_name, visualize=True):
+    def post_point_tracks(self, api_host, dataset_name, visualize=True):
         r = requests.post(url=api_host + "jobs/point_tracks",
         params={
             "dataset_name": dataset_name,
@@ -93,3 +93,7 @@ class DatasetInterface:
             return False
 
     def response_print(self, r, positive_code=200, task_descr="request"):
+        code_check = r.status_code == positive_code
+        result = "pass" if code_check else "fail"
+        print("[INFO] status [{}] {} - {}".format(r.status_code, task_descr, result))
+        return code_check
