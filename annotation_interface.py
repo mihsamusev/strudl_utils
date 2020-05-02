@@ -98,6 +98,5 @@ class AnnotationInterface():
         self.response_print(r, 200,"posting annotation data: {}; video: {}; image: {}".format(
                 dataset_name, video_name, image_number))
 
-
     def post_all_saved_annotations(self, original2server_map):
         pass

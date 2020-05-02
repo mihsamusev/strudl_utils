@@ -96,7 +96,7 @@ if __name__ == "__main__":
         help="path to input video or image file")
     ag.add_argument("-m", "--mask", default=None,
         help="path to output mask image")
-    ag.add_argument("-o", "--offset", default=0,
+    ag.add_argument("-o", "--offset", default=0, type=int,
         help="offset frame to do draw the mask on whe the video is input")
     args = vars(ag.parse_args())
 

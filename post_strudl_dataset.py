@@ -23,7 +23,7 @@ if __name__ == "__main__":
     di = DatasetInterface(config)
 
     # load cache
-    project_cashe = load(args["project"], "strudl_cashe.json")
+    project_cashe = load(args["project"], "project_cashe.json")
     if project_cashe is None:
         project_cashe = {}
     

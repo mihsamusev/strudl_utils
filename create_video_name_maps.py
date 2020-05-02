@@ -18,14 +18,14 @@ if __name__ == "__main__":
 
     # load main dataset config and video names
     config = load(args["project"], "strudl_config.json")
-    original_video_names = load(args["project"], "video_names.json")
+    original_video_names = load(args["project"], "video_names.json")["video_names"]
 
     ai = AnnotationInterface(config["api_host"])
 
     server2original_video_map = {}
 
     server_videos = ai.get_server_videos(dataset_name=config["dataset_name"])
-    server2original_video_map = dict(zip(server_videos, original_video_names["video_names"]))
+    server2original_video_map = dict(zip(server_videos, original_video_names))
 
     # save maps
     

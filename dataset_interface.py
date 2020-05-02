@@ -39,7 +39,7 @@ class DatasetInterface:
         r = requests.post(url=api_host + "datasets/config",
             params={"dataset_name": dataset_name}, json=settings)
 
-        if r.status_code == 200:
+        if r.status_code == 202:
             print("[INFO] status [{}] adding config to '{}' - pass".format(r.status_code, dataset_name))
             return True
         else:
